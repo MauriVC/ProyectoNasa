@@ -21,9 +21,15 @@ const planetaSchema = new mongoose.Schema({
     name: String,
     radius_km: Number,
     distance_from_sun_km: Number,
+    image_url: String,
     mass_kg: Number,
     orbital_period_days: Number,
-    description: String
+    discovered_by: String,
+    discovery_date: String,
+    description: String,
+    a: Number, // Semi-major axis
+    e: Number, // Eccentricity
+    i: Number  // Inclination
 });
 const Planeta = mongoose.model('Planeta', planetaSchema, 'Planetas');
 
@@ -36,9 +42,16 @@ const asteroideSchema = new mongoose.Schema({
     potential_hazard: Boolean,
     approach_date: String,
     orbit_class: String,
-    last_observed: String,
-    observation_source: String,
-    additional_info: String
+    additional_info: String,
+    a: Number,
+    e: Number,
+    i: Number,
+    om: Number,
+    w: Number,
+    q: Number,
+    ad: Number,
+    per_y: Number,
+    data_arc: Number
 });
 const Asteroide = mongoose.model('Asteroide', asteroideSchema, 'Asteroides');
 
@@ -49,9 +62,16 @@ const cometaSchema = new mongoose.Schema({
     closest_approach_km: Number,
     speed_km_per_h: Number,
     next_approach_date: String,
-    last_observed: String,
-    observation_source: String,
-    additional_info: String
+    additional_info: String,
+    a: Number, // Semi-major axis
+    e: Number, // Eccentricity
+    i: Number, // Inclination
+    om: Number,
+    w: Number,
+    q: Number,
+    ad: Number,
+    per_y: Number,
+    data_arc: Number
 });
 const Cometa = mongoose.model('Cometa', cometaSchema, 'Cometas');
 
@@ -65,7 +85,16 @@ const objetoPeligrosoSchema = new mongoose.Schema({
     closest_approach_km: Number,
     speed_km_per_h: Number,
     orbit_class: String,
-    additional_info: String
+    additional_info: String,
+    a: Number,
+    e: Number,
+    i: Number,
+    om: Number,
+    w: Number,
+    q: Number,
+    ad: Number,
+    per_y: Number,
+    data_arc: Number
 });
 const ObjetoPeligroso = mongoose.model('ObjetoPeligroso', objetoPeligrosoSchema, 'Objetos_Peligrosos');
 
@@ -123,16 +152,22 @@ app.get('/api/planetas', async (req, res) => {
 });
 
 app.post('/api/planetas', async (req, res) => {
-    const { name, radius_km, distance_from_sun_km, mass_kg, orbital_period_days, description } = req.body;
+    const { name, radius_km, distance_from_sun_km, image_url, mass_kg, orbital_period_days, discovered_by, discovery_date, description, a, e, i } = req.body;
 
     try {
         const nuevoPlaneta = new Planeta({
             name,
             radius_km,
             distance_from_sun_km,
+            image_url,
             mass_kg,
             orbital_period_days,
-            description
+            discovered_by,
+            discovery_date,
+            description,
+            a,
+            e,
+            i
         });
 
         await nuevoPlaneta.save();
@@ -153,7 +188,7 @@ app.get('/api/asteroides', async (req, res) => {
 });
 
 app.post('/api/asteroides', async (req, res) => {
-    const { name, size_m, closest_approach_km, speed_km_per_h, potential_hazard, approach_date, orbit_class, last_observed, observation_source, additional_info } = req.body;
+    const { name, size_m, closest_approach_km, speed_km_per_h, potential_hazard, approach_date, orbit_class, additional_info, a, e, i, om, w, q, ad, per_y, data_arc } = req.body;
 
     try {
         const nuevoAsteroide = new Asteroide({
@@ -164,9 +199,16 @@ app.post('/api/asteroides', async (req, res) => {
             potential_hazard,
             approach_date,
             orbit_class,
-            last_observed,
-            observation_source,
-            additional_info
+            additional_info,
+            a,
+            e,
+            i,
+            om,
+            w,
+            q,
+            ad,
+            per_y,
+            data_arc
         });
 
         await nuevoAsteroide.save();
@@ -187,7 +229,7 @@ app.get('/api/cometas', async (req, res) => {
 });
 
 app.post('/api/cometas', async (req, res) => {
-    const { name, orbital_period_years, closest_approach_km, speed_km_per_h, next_approach_date, last_observed, observation_source, additional_info } = req.body;
+    const { name, orbital_period_years, closest_approach_km, speed_km_per_h, next_approach_date, additional_info, a, e, i, om, w, q, ad, per_y, data_arc } = req.body;
 
     try {
         const nuevoCometa = new Cometa({
@@ -196,9 +238,16 @@ app.post('/api/cometas', async (req, res) => {
             closest_approach_km,
             speed_km_per_h,
             next_approach_date,
-            last_observed,
-            observation_source,
-            additional_info
+            additional_info,
+            a,
+            e,
+            i,
+            om,
+            w,
+            q,
+            ad,
+            per_y,
+            data_arc
         });
 
         await nuevoCometa.save();
@@ -219,7 +268,7 @@ app.get('/api/objetos-peligrosos', async (req, res) => {
 });
 
 app.post('/api/objetos-peligrosos', async (req, res) => {
-    const { object_type, name, size_m, potential_hazard, approach_date, closest_approach_km, speed_km_per_h, orbit_class, additional_info } = req.body;
+    const { object_type, name, size_m, potential_hazard, approach_date, closest_approach_km, speed_km_per_h, orbit_class, additional_info, a, e, i, om, w, q, ad, per_y, data_arc } = req.body;
 
     try {
         const nuevoObjetoPeligroso = new ObjetoPeligroso({
@@ -231,7 +280,16 @@ app.post('/api/objetos-peligrosos', async (req, res) => {
             closest_approach_km,
             speed_km_per_h,
             orbit_class,
-            additional_info
+            additional_info,
+            a,
+            e,
+            i,
+            om,
+            w,
+            q,
+            ad,
+            per_y,
+            data_arc
         });
 
         await nuevoObjetoPeligroso.save();

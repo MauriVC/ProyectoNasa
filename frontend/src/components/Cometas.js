@@ -24,12 +24,19 @@ function Cometas() {
       <ul>
         {cometas.map(cometa => (
           <li key={cometa._id}>
-            <h3>{cometa.name}</h3>
-            <p><strong>Período Orbital:</strong> {cometa.orbital_period_years} años</p>
-            <p><strong>Distancia más cercana:</strong> {cometa.closest_approach_km} km</p>
-            <p><strong>Velocidad:</strong> {cometa.speed_km_per_h} km/h</p>
-            <p><strong>Fecha de Próxima Aproximación:</strong> {cometa.next_approach_date}</p>
-            <p><strong>Descripción:</strong> {cometa.description}</p>
+            <h3>{cometa.object_name}</h3>
+            <p><strong>Época TDB:</strong> {cometa.epoch_tdb}</p>
+            <p><strong>Tiempo del perihelio TDB:</strong> {cometa.tp_tdb}</p>
+            <p><strong>Excentricidad (e):</strong> {cometa.e}</p>
+            <p><strong>Inclinación (i):</strong> {cometa.i_deg}°</p>
+            <p><strong>Argumento del perihelio (w):</strong> {cometa.w_deg}°</p>
+            <p><strong>Nodo ascendente (Ω):</strong> {cometa.node_deg}°</p>
+            <p><strong>Distancia del perihelio (q1):</strong> {cometa.q_au_1} AU</p>
+            <p><strong>Distancia del afelio (q2):</strong> {cometa.q_au_2} AU</p>
+            <p><strong>Período Orbital:</strong> {cometa.p_yr} años</p>
+            <p><strong>MOID (Distancia mínima de intersección de órbita):</strong> {cometa.moid_au} AU</p>
+            <p><strong>Referencia:</strong> {cometa.ref}</p>
+            <p><strong>Nombre del objeto:</strong> {cometa.object_name}</p>
           </li>
         ))}
       </ul>
