@@ -1,0 +1,46 @@
+/* Estilos para el menú de eventos */
+#eventMenu {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+#eventMenu.menu-closed {
+    width: 100px;
+    height: 50px;
+}
+
+#eventMenu.menu-opened {
+    width: 200px;
+    height: auto;
+}
+
+#eventButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+#eventList {
+    list-style-type: none;
+    padding: 10px;
+    margin: 0;
+}
+
+#eventList li {
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+#eventList li:hover {
+    color: #ffcc00;
+}

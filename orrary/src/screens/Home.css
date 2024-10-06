@@ -1,0 +1,27 @@
+.home {
+    margin: 0;
+    padding: 0;
+    background-image: url('../../public/static/image/galaxy.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center; 
+    width: 100vw; 
+    min-height: 100vh; 
+    position: relative; 
+    z-index: -10;
+}
+
+
+.home-content{
+    position: absolute;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    align-items: center;
+    color: #fff;
+    gap: 30px;
+    height: 26rem;
+    justify-content: center;
+}
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="./index.css">
+<title>Orrery : 3D Solar System</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4J64SC1QY7"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+    dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-4J64SC1QY7");
+</script>
+<link rel="icon" type="image/png" href="../static/image/solar-system.png" />
+<script type="text/javascript" src="./min.js/dat.gui.min.js"></script>
+</head>
+<body>
+<div id="planet-info"
+    style="position: absolute; top: 10px; left: 10px; background-color: white; padding: 10px; display: none;">
+    <h2 id="planet-name"></h2>
+    <p id="planet-description"></p>
+</div>
+<div id="planet-modal" class="modal">
+    <div class="modal-content">
+    <div id="planet-view"></div>
+    <table id="planet-data-table">
+        <thead>
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody id="planet-data">
+        <!-- planet's data -->
+        </tbody>
+    </table>
+    </div>
+    <span class="close-btn" id="close-modal">Close</span>
+</div>
+<script src="./js/solarSystem.js" type="module"></script>
+<script>
+        fetch('http://localhost:3000/api/planetas')
+            .then(response => {
+                if (!response.ok) {
+                    // If the request failed, throw an error
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then(data => {
+                // Success! Do something with the data
+                console.log(data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    
+</script>
+</body>
+</html>
