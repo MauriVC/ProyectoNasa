@@ -1,6 +1,7 @@
 //Import
 import * as THREE from "https://unpkg.com/three@0.127.0/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js";
+import { GLTFLoader } from "https://unpkg.com/three@0.127.0/examples/jsm/loaders/GLTFLoader.js";  // Importa GLTFLoader
 
 //////////////////////////////////////
 //Creating renderer
@@ -33,17 +34,20 @@ const uranusRingTexture = textureLoader.load("../../static/image/uranus_ring.png
 const scene = new THREE.Scene();
 
 //////////////////////////////////////
-//screen bg
-const cubeTextureLoader = new THREE.CubeTextureLoader();
-const cubeTexture = cubeTextureLoader.load([
-  starTexture,
-  starTexture,
-  starTexture,
-  starTexture,
-  starTexture,
-  starTexture,
-]);
-scene.background = cubeTexture;
+// Cargar el modelo del skybox (space.glb)
+const gltfLoader = new GLTFLoader();
+gltfLoader.load('../../static/image/space.glb', (gltf) => {
+  const skyboxModel = gltf.scene;
+
+  // Ajusta el tamaño del skybox para que envuelva toda la escena
+  skyboxModel.scale.set(500, 500, 500); // Ajusta según sea necesario
+
+  // Agrega el skybox a la escena
+  scene.add(skyboxModel);
+}, undefined, (error) => {
+  console.error('Error al cargar el skybox:', error);
+});
+
 
 //////////////////////////////////////
 // Camera
@@ -353,7 +357,7 @@ window.addEventListener('click', (event) => {
     const planetName = intersects[0].object.parent.userData.name;
     if (planetName) {
       const planetData = getPlanetInfo(planetName);
-      const texture = eval(`${planetName.toLowerCase()}Texture`);
+      const texture = eval('${planetName.toLowerCase()}Texture');
       openModal(planetName, planetData, texture);
     }
   }
